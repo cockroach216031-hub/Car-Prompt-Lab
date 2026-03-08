@@ -21,7 +21,7 @@
     <div class="max-w-6xl mx-auto pb-60">
         <header class="mb-12 text-left border-l-4 border-blue-600 pl-6">
             <h1 class="text-4xl font-black tracking-tight mb-2 uppercase">專業級提示詞實驗室</h1>
-            <p class="text-gray-400 font-medium">從輪框規格到電影級調色，定義每一個光影細節。</p>
+            <p class="text-gray-400 font-medium">自定義比例與細節，精準生成 AI 汽車大片。</p>
         </header>
 
         <div id="lab-content" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
@@ -29,29 +29,20 @@
 
     <div class="fixed bottom-0 left-0 w-full p-6 bg-slate-900/95 backdrop-blur-xl border-t border-white/10 shadow-2xl z-50">
         <div class="max-w-6xl mx-auto flex flex-col gap-6">
-            
             <div class="flex flex-col lg:flex-row gap-6 items-end">
                 <div class="flex-1 w-full">
                     <div class="flex justify-between mb-2">
                         <label class="text-xs text-blue-400 font-bold uppercase tracking-wider">Prompt & Search Keywords</label>
                         <span id="counter" class="text-xs text-gray-500 font-mono">已選擇 0 項</span>
                     </div>
-                    <textarea id="final-prompt" readonly class="w-full bg-black/60 border border-white/10 rounded-xl p-4 text-sm h-24 focus:outline-none focus:border-blue-500 resize-none text-blue-100" placeholder="點選上方選項來生成提示詞..."></textarea>
+                    <textarea id="final-prompt" readonly class="w-full bg-black/60 border border-white/10 rounded-xl p-4 text-sm h-24 focus:outline-none focus:border-blue-500 resize-none text-blue-100" placeholder="點選上方選項..."></textarea>
                 </div>
                 
                 <div class="flex flex-wrap gap-3 w-full lg:w-auto">
-                    <button onclick="clearAll()" class="flex-1 lg:flex-none border border-red-500/50 text-red-400 hover:bg-red-500 hover:text-white px-5 py-4 rounded-xl font-bold transition-all text-xs">
-                        清除全部
-                    </button>
-                    <button onclick="randomPick()" class="flex-1 lg:flex-none border border-green-500/50 text-green-400 hover:bg-green-500 hover:text-white px-5 py-4 rounded-xl font-bold transition-all text-xs">
-                        隨機驚喜
-                    </button>
-                    <button onclick="googleSearch()" class="flex-1 lg:flex-none bg-white text-black hover:bg-gray-200 px-6 py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all text-xs">
-                        Google 搜尋
-                    </button>
-                    <button onclick="copyPrompt()" class="flex-1 lg:flex-none bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-xl font-bold shadow-lg transition-all active:scale-95 text-xs">
-                        複製提示詞
-                    </button>
+                    <button onclick="clearAll()" class="flex-1 lg:flex-none border border-red-500/50 text-red-400 hover:bg-red-500 hover:text-white px-5 py-4 rounded-xl font-bold transition-all text-xs">清除全部</button>
+                    <button onclick="randomPick()" class="flex-1 lg:flex-none border border-green-500/50 text-green-400 hover:bg-green-500 hover:text-white px-5 py-4 rounded-xl font-bold transition-all text-xs">隨機驚喜</button>
+                    <button onclick="googleSearchOnlyTags()" class="flex-1 lg:flex-none bg-white text-black hover:bg-gray-200 px-6 py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all text-xs">Google 搜尋圖片</button>
+                    <button onclick="copyPrompt()" class="flex-1 lg:flex-none bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-xl font-bold shadow-lg transition-all active:scale-95 text-xs">複製提示詞</button>
                 </div>
             </div>
         </div>
@@ -59,62 +50,25 @@
 
     <script>
         const categories = [
-            {
-                title: "車輛品牌與型號",
-                icon: "🏎️",
-                options: ["Aston Martin Valkyrie", "Audi RS6 Avant", "Bentley Continental GT Speed", "BMW M4 CSL (G82)", "Bugatti Tourbilllon", "Chevrolet Corvette Z06 (C8)", "Dodge Challenger SRT Hellcat", "Ferrari 250 GTO", "Ferrari SF90", "Ford F-150 Raptor R", "Ford GT (2017)", "Gordon Murray T.50", "Honda NSX (NA1)", "Hummer EV", "Jeep Wrangler Rubicon", "Koenigsegg Jesko", "Koenigsegg Jesko Absolut", "Lamborghini Countach LP400", "Lambo Revuelto", "Land Rover Defender", "Lexus LFA", "Lucid Air Sapphire", "Maybach S-Class (Z223)", "Mazda RX-7 FD3S", "Mclaren 750S", "Mercedes-AMG One", "Mercedes-Benz G63 AMG", "Mitsubishi Lancer Evo IX", "Mustang 1967", "Nissan Skyline GT-R R34", "Pagani Huayra", "Pagani Huayra Roadster BC", "Plymouth Superbird", "Porsche 911 GT3", "Porsche 911 GT3 RS (992)", "Rimac Nevera", "Rivian R1T", "RR Spectre (Rolls-Royce)", "Shelby Cobra 427", "Subaru Impreza 22B STi", "Toyota Supra A80"]
-            },
-            {
-                title: "車色烤漆",
-                icon: "🎨",
-                options: ["消光黑", "曜石黑", "珍珠白", "水泥灰", "石墨灰", "液態銀", "法拉利紅", "糖果紅", "極光粉", "熔岩橙", "金屬螢光黃", "香檳金", "磨砂金", "英倫綠", "松石綠", "金屬藍", "邁阿密藍", "午夜紫", "深夜紫", "鍛造碳纖維原色", "變色龍漆", "電鍍鉻"]
-            },
-            {
-                title: "外觀細節 (多選)",
-                icon: "🛠️",
-                multi: true,
-                options: ["寬體套件", "碳纖維件", "競技擴散器", "主動式尾翼", "低趴改裝", "剛洗完車感", "底盤燈", "漆面倒影", "鍛造碳纖維紋路", "黃色競技大燈", "外露式中冷器", "車頂行李箱", "戰損妝", "雨滴掛牆", "燒胎煙霧", "動態模糊", "排氣管噴火", "泥濘濺射", "鍍膜潑水感", "低照度剪影", "防滾籠", "大角度負外傾角", "引擎室特寫", "金屬拉絲質感", "金屬陽極處理", "空氣力學定風翼", "葉子板寬體切割", "劃線打孔通風碟", "輪拱內襯細節", "剎車盤燒紅", "輪框旋轉動態", "氣壓避震藏輪"]
-            },
-            {
-                title: "輪框",
-                icon: "🛞",
-                options: ["經典五輻輪框", "雙五輻輪框", "密齒多幅式輪框", "網狀式輪框", "V 型輻條輪框", "深唇式輪框", "輕量化六輻輪框", "內凹式輪框", "單孔賽車式輪框", "低風阻封閉式輪框", "雙色切削輪框", "螺旋/渦輪式輪框", "鏤空輕量化輪框", "大餅式輪框", "三片式鍛造輪框", "碳纖維輪框", "釘裝式輪框"]
-            },
-            {
-                title: "環境背景",
-                icon: "📍",
-                options: ["波音維爾鹽灘", "東京街頭", "海濱公路", "極簡豪宅前庭", "高速霓虹隧道", "私人飛機棚", "秋季山道", "賽道起跑線", "冰島黑沙灘", "廢棄倉庫", "工業地下停車場", "紅岩峽谷", "未來城市", "東京澀谷雨夜", "加州 1 號公路", "摩納哥賽道髮夾彎", "現代主義清水模建築", "北歐針林雪地", "廢棄超現實工廠", "杜拜棕櫚島夜景", "義大利科莫湖畔", "巴黎深夜艾菲爾鐵塔下", "德國紐柏林賽道北環", "倫敦梅費爾街區", "撒哈拉沙漠金黃沙丘", "蘇格蘭高地荒野", "亞利桑那羚羊峽谷", "銀翼殺手混亂街區", "全息攝影棚", "日式極簡禪意庭院", "火星殖民地基地"]
-            },
-            {
-                title: "光影與風格",
-                icon: "📸",
-                options: ["黃金小時側光", "電影級藍調時刻", "追焦模糊 (Rolling)", "無人機視角", "復古柯達膠捲", "變形寬銀幕鏡頭", "丁達爾效應"]
-            }
+            { title: "車輛品牌與型號", icon: "🏎️", options: ["Aston Martin Valkyrie", "Audi RS6 Avant", "Bentley Continental GT Speed", "BMW M4 CSL (G82)", "Bugatti Tourbilllon", "Chevrolet Corvette Z06 (C8)", "Dodge Challenger SRT Hellcat", "Ferrari 250 GTO", "Ferrari SF90", "Ford F-150 Raptor R", "Ford GT (2017)", "Gordon Murray T.50", "Honda NSX (NA1)", "Hummer EV", "Jeep Wrangler Rubicon", "Koenigsegg Jesko", "Koenigsegg Jesko Absolut", "Lamborghini Countach LP400", "Lambo Revuelto", "Land Rover Defender", "Lexus LFA", "Lucid Air Sapphire", "Lotus Emira", "Maybach S-Class (Z223)", "Mazda RX-7 FD3S", "Mclaren 750S", "Mercedes-AMG One", "Mercedes-Benz G63 AMG", "Mini Cooper", "Mitsubishi Lancer Evo IX", "Mustang 1967", "Nissan Skyline GT-R R34", "Pagani Huayra", "Pagani Huayra Roadster BC", "Plymouth Superbird", "Porsche 911 GT3 RS (992)", "Rimac Nevera", "Rivian R1T", "RR Spectre (Rolls-Royce)", "Shelby Cobra 427", "Subaru Impreza 22B STi", "Tesla Model S", "Toyota Supra A80", "Volkswagen Golf R"] },
+            { title: "車色與特殊漆面", icon: "🎨", options: ["消光黑", "曜石黑", "珍珠白", "水泥灰", "石墨灰", "液態銀", "法拉利紅", "糖果紅", "極光粉", "熔岩橙", "金屬螢光黃", "香檳金", "磨砂金", "英倫綠", "松石綠", "金屬藍", "邁阿密藍", "午夜紫", "深夜紫", "鍛造碳纖維原色", "變色龍漆", "電鍍鉻"] },
+            { title: "外觀細節", icon: "🛠️", multi: true, options: ["寬體套件", "碳纖維件", "競技擴散器", "主動式尾翼", "低趴改裝", "底盤燈", "漆面倒影", "鍛造碳纖維紋路", "黃色競技大燈", "外露式中冷器", "車頂行李箱", "戰損妝", "雨滴掛牆", "燒胎煙霧", "動態模糊", "排氣管噴火", "泥濘濺射", "鍍膜潑水感", "低照度剪影", "防滾籠", "大角度負外傾角", "引擎室特寫", "金屬拉絲質感", "金屬陽極處理", "空氣力學定風翼", "葉子板寬體切割", "劃線打孔通風碟", "輪拱內襯細節", "剎車盤燒紅", "輪框旋轉動態", "氣壓避震藏輪"] },
+            { title: "輪框", icon: "🛞", options: ["經典五輻輪框", "雙五輻輪框", "密齒多幅式輪框", "網狀式輪框", "V 型輻條輪框", "深唇式輪框", "輕量化六輻輪框", "內凹式輪框", "單孔賽車式輪框", "低風阻封閉式輪框", "雙色切削輪框", "螺旋/渦輪式輪框", "鏤空輕量化輪框", "大餅式輪框", "三片式鍛造輪框", "碳纖維輪框", "釘裝式輪框"] },
+            { title: "環境背景", icon: "🚩", options: ["波音維爾鹽灘", "東京街頭", "海濱公路", "極簡豪宅前庭", "高速霓虹隧道", "私人飛機棚", "秋季山道", "賽道起跑線", "冰島黑沙灘", "廢棄倉庫", "工業地下停車場", "紅岩峽谷", "未來城市", "東京澀谷雨夜", "加州 1 號公路", "摩納哥賽道髮夾彎", "現代主義清水模建築", "北歐針林雪地", "廢棄超現實工廠", "杜拜棕櫚島夜景", "義大利科莫湖畔", "巴黎深夜艾菲爾鐵塔下", "德國紐柏林賽道北環", "倫敦梅費爾街區", "撒哈拉沙漠金黃沙丘", "蘇格蘭高地荒野", "亞利桑那羚羊峽谷", "銀翼殺手混亂街區", "全息攝影棚", "日式極簡禪意庭院", "火星殖民地基地"] },
+            { title: "光影與風格", icon: "📸", options: ["黃金小時側光", "電影級藍調時刻", "追焦模糊", "無人機視角", "復古柯達膠捲", "變形寬銀幕鏡頭", "丁達爾效應", "輪廓光", "體積霧", "雨滴反射", "攝影棚柔光", "霓虹反射"] },
+            { title: "影像比例", icon: "📐", options: ["--ar 9:16", "--ar 16:9", "--ar 3:2", "--ar 2:3", "--ar 4:5", "--ar 1:1"] },
+            { title: "專業色調", icon: "🎞️", options: ["藍橘電影感", "暗黑硬派", "膠捲感", "高對比黑白"] }
         ];
 
         let selectedOptions = {};
+        const basePrefix = "Cinematic car photography, ultra-realistic, 8k resolution, highly detailed";
 
         function init() {
             const container = document.getElementById('lab-content');
             categories.forEach(cat => {
                 const div = document.createElement('div');
                 div.className = 'glass-card p-6 rounded-2xl';
-                div.innerHTML = `
-                    <div class="flex items-center gap-2 mb-4 border-b border-white/5 pb-2">
-                        <span class="text-xl">${cat.icon}</span>
-                        <h3 class="font-bold text-gray-200">${cat.title}</h3>
-                        ${cat.multi ? '<span class="text-[10px] bg-blue-500/20 text-blue-400 px-1.5 py-0.5 rounded border border-blue-500/30 ml-auto">可複選</span>' : ''}
-                    </div>
-                    <div class="flex flex-wrap gap-2">
-                        ${cat.options.map(opt => `
-                            <button onclick="toggle('${cat.title}', '${opt}', ${cat.multi || false})" 
-                                    data-cat="${cat.title}" data-opt="${opt}"
-                                    class="option-btn px-3 py-1.5 rounded-lg text-[11px] font-medium text-gray-400 bg-slate-800/30">
-                                ${opt}
-                            </button>
-                        `).join('')}
-                    </div>
-                `;
+                div.innerHTML = `<div class="flex items-center gap-2 mb-4 border-b border-white/5 pb-2"><span class="text-xl">${cat.icon}</span><h3 class="font-bold text-gray-200 text-sm">${cat.title}</h3></div><div class="flex flex-wrap gap-2">${cat.options.map(opt => `<button onclick="toggle('${cat.title}', '${opt}', ${cat.multi || false})" data-cat="${cat.title}" data-opt="${opt}" class="option-btn px-3 py-1.5 rounded-lg text-[11px] font-medium text-gray-400 bg-slate-800/30">${opt}</button>`).join('')}</div>`;
                 container.appendChild(div);
             });
         }
@@ -125,9 +79,7 @@
                 const i = selectedOptions[cat].indexOf(opt);
                 if (i > -1) selectedOptions[cat].splice(i, 1);
                 else selectedOptions[cat].push(opt);
-            } else {
-                selectedOptions[cat] = [opt];
-            }
+            } else { selectedOptions[cat] = [opt]; }
             renderUI();
             updatePrompt();
         }
@@ -142,48 +94,54 @@
         }
 
         function updatePrompt() {
-            const flat = Object.values(selectedOptions).flat();
-            document.getElementById('counter').innerText = `已選擇 ${flat.length} 項`;
+            const allChoices = Object.entries(selectedOptions);
+            const flatTags = [];
+            let aspectRatio = "";
+
+            allChoices.forEach(([title, choices]) => {
+                if (title === "影像比例") {
+                    aspectRatio = choices[0] || ""; // 比例只有一個
+                } else {
+                    flatTags.push(...choices);
+                }
+            });
+
+            document.getElementById('counter').innerText = `已選擇 ${flatTags.length + (aspectRatio ? 1 : 0)} 項`;
             
-            if (flat.length === 0) {
+            if (flatTags.length === 0 && !aspectRatio) {
                 document.getElementById('final-prompt').value = "";
                 return;
             }
 
-            // 修正處：重新加回 Cinematic car photography 前綴與 --ar 參數
-            const basePrompt = "Cinematic car photography, ultra-realistic, 8k resolution, highly detailed";
-            const userChoices = flat.join(", ");
-            const suffix = "--ar 9:16";
-            
-            document.getElementById('final-prompt').value = `${basePrompt}, ${userChoices} ${suffix}`;
+            const promptText = `${basePrefix}, ${flatTags.join(", ")} ${aspectRatio}`.trim();
+            document.getElementById('final-prompt').value = promptText;
         }
 
-        function clearAll() {
-            selectedOptions = {};
-            renderUI();
-            updatePrompt();
+        function googleSearchOnlyTags() {
+            const flat = Object.entries(selectedOptions)
+                .filter(([title]) => title !== "影像比例") // 搜尋時過濾掉比例標籤
+                .map(([_, choices]) => choices)
+                .flat();
+
+            if (flat.length === 0) return alert("請先選擇車型或顏色等標籤！");
+            window.open(`https://www.google.com/search?q=${encodeURIComponent(flat.join(" "))}&tbm=isch`, '_blank');
         }
+
+        function clearAll() { selectedOptions = {}; renderUI(); updatePrompt(); }
 
         function randomPick() {
             selectedOptions = {};
             categories.forEach(cat => {
-                const randomOpt = cat.options[Math.floor(Math.random() * cat.options.length)];
-                selectedOptions[cat.title] = [randomOpt];
+                selectedOptions[cat.title] = [cat.options[Math.floor(Math.random() * cat.options.length)]];
             });
             renderUI();
             updatePrompt();
         }
 
-        function googleSearch() {
-            const query = document.getElementById('final-prompt').value;
-            if (!query) return alert("請先選擇一些選項！");
-            window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}&tbm=isch`, '_blank');
-        }
-
         function copyPrompt() {
             const txt = document.getElementById('final-prompt');
             if(!txt.value) return;
-            navigator.clipboard.writeText(txt.value).then(() => alert("已複製提示詞！"));
+            navigator.clipboard.writeText(txt.value).then(() => alert("已複製完整提示詞！"));
         }
 
         init();
