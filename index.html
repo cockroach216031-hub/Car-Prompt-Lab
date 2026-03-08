@@ -18,7 +18,7 @@
 </head>
 <body class="p-4 md:p-10">
 
-    <div class="max-w-6xl mx-auto pb-96">
+    <div class="max-w-6xl mx-auto pb-60">
         <header class="mb-12 text-left border-l-4 border-blue-600 pl-6">
             <h1 class="text-4xl font-black tracking-tight mb-2 uppercase">專業級提示詞實驗室</h1>
             <p class="text-gray-400 font-medium">從輪框規格到電影級調色，定義每一個光影細節。</p>
@@ -33,23 +33,23 @@
             <div class="flex flex-col lg:flex-row gap-6 items-end">
                 <div class="flex-1 w-full">
                     <div class="flex justify-between mb-2">
-                        <label class="text-xs text-blue-400 font-bold uppercase">Prompt & Search Keywords</label>
+                        <label class="text-xs text-blue-400 font-bold uppercase tracking-wider">Prompt & Search Keywords</label>
                         <span id="counter" class="text-xs text-gray-500 font-mono">已選擇 0 項</span>
                     </div>
                     <textarea id="final-prompt" readonly class="w-full bg-black/60 border border-white/10 rounded-xl p-4 text-sm h-24 focus:outline-none focus:border-blue-500 resize-none text-blue-100" placeholder="點選上方選項來生成提示詞..."></textarea>
                 </div>
                 
                 <div class="flex flex-wrap gap-3 w-full lg:w-auto">
-                    <button onclick="clearAll()" class="flex-1 lg:flex-none border border-red-500/50 text-red-400 hover:bg-red-500 hover:text-white px-5 py-4 rounded-xl font-bold transition-all text-sm">
+                    <button onclick="clearAll()" class="flex-1 lg:flex-none border border-red-500/50 text-red-400 hover:bg-red-500 hover:text-white px-5 py-4 rounded-xl font-bold transition-all text-xs">
                         清除全部
                     </button>
-                    <button onclick="randomPick()" class="flex-1 lg:flex-none border border-green-500/50 text-green-400 hover:bg-green-500 hover:text-white px-5 py-4 rounded-xl font-bold transition-all text-sm">
+                    <button onclick="randomPick()" class="flex-1 lg:flex-none border border-green-500/50 text-green-400 hover:bg-green-500 hover:text-white px-5 py-4 rounded-xl font-bold transition-all text-xs">
                         隨機驚喜
                     </button>
-                    <button onclick="googleSearch()" class="flex-1 lg:flex-none bg-white text-black hover:bg-gray-200 px-6 py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all text-sm">
-                        Google 搜尋圖片
+                    <button onclick="googleSearch()" class="flex-1 lg:flex-none bg-white text-black hover:bg-gray-200 px-6 py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all text-xs">
+                        Google 搜尋
                     </button>
-                    <button onclick="copyPrompt()" class="flex-1 lg:flex-none bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-xl font-bold shadow-lg transition-all active:scale-95 text-sm">
+                    <button onclick="copyPrompt()" class="flex-1 lg:flex-none bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-xl font-bold shadow-lg transition-all active:scale-95 text-xs">
                         複製提示詞
                     </button>
                 </div>
@@ -65,7 +65,7 @@
                 options: ["Aston Martin Valkyrie", "Audi RS6 Avant", "Bentley Continental GT Speed", "BMW M4 CSL (G82)", "Bugatti Tourbilllon", "Chevrolet Corvette Z06 (C8)", "Dodge Challenger SRT Hellcat", "Ferrari 250 GTO", "Ferrari SF90", "Ford F-150 Raptor R", "Ford GT (2017)", "Gordon Murray T.50", "Honda NSX (NA1)", "Hummer EV", "Jeep Wrangler Rubicon", "Koenigsegg Jesko", "Koenigsegg Jesko Absolut", "Lamborghini Countach LP400", "Lambo Revuelto", "Land Rover Defender", "Lexus LFA", "Lucid Air Sapphire", "Maybach S-Class (Z223)", "Mazda RX-7 FD3S", "Mclaren 750S", "Mercedes-AMG One", "Mercedes-Benz G63 AMG", "Mitsubishi Lancer Evo IX", "Mustang 1967", "Nissan Skyline GT-R R34", "Pagani Huayra", "Pagani Huayra Roadster BC", "Plymouth Superbird", "Porsche 911 GT3", "Porsche 911 GT3 RS (992)", "Rimac Nevera", "Rivian R1T", "RR Spectre (Rolls-Royce)", "Shelby Cobra 427", "Subaru Impreza 22B STi", "Toyota Supra A80"]
             },
             {
-                title: "車色與漆面",
+                title: "車色烤漆",
                 icon: "🎨",
                 options: ["消光黑", "曜石黑", "珍珠白", "水泥灰", "石墨灰", "液態銀", "法拉利紅", "糖果紅", "極光粉", "熔岩橙", "金屬螢光黃", "香檳金", "磨砂金", "英倫綠", "松石綠", "金屬藍", "邁阿密藍", "午夜紫", "深夜紫", "鍛造碳纖維原色", "變色龍漆", "電鍍鉻"]
             },
@@ -76,9 +76,9 @@
                 options: ["寬體套件", "碳纖維件", "競技擴散器", "主動式尾翼", "低趴改裝", "剛洗完車感", "底盤燈", "漆面倒影", "鍛造碳纖維紋路", "黃色競技大燈", "外露式中冷器", "車頂行李箱", "戰損妝", "雨滴掛牆", "燒胎煙霧", "動態模糊", "排氣管噴火", "泥濘濺射", "鍍膜潑水感", "低照度剪影", "防滾籠", "大角度負外傾角", "引擎室特寫", "金屬拉絲質感", "金屬陽極處理", "空氣力學定風翼", "葉子板寬體切割", "劃線打孔通風碟", "輪拱內襯細節", "剎車盤燒紅", "輪框旋轉動態", "氣壓避震藏輪"]
             },
             {
-                title: "輪框與輪胎",
+                title: "輪框",
                 icon: "🛞",
-                options: ["經典五輻", "雙五輻", "密齒多幅式", "網狀式", "V 型輻條", "深唇式", "輕量化六輻", "內凹式", "單孔賽車式", "低風阻封閉式", "雙色切削", "螺旋/渦輪式", "鏤空輕量化", "大餅式", "三片式鍛造", "碳纖維輪框", "釘裝式"]
+                options: ["經典五輻輪框", "雙五輻輪框", "密齒多幅式輪框", "網狀式輪框", "V 型輻條輪框", "深唇式輪框", "輕量化六輻輪框", "內凹式輪框", "單孔賽車式輪框", "低風阻封閉式輪框", "雙色切削輪框", "螺旋/渦輪式輪框", "鏤空輕量化輪框", "大餅式輪框", "三片式鍛造輪框", "碳纖維輪框", "釘裝式輪框"]
             },
             {
                 title: "環境背景",
@@ -89,12 +89,10 @@
                 title: "光影與風格",
                 icon: "📸",
                 options: ["黃金小時側光", "電影級藍調時刻", "追焦模糊 (Rolling)", "無人機視角", "復古柯達膠捲", "變形寬銀幕鏡頭", "丁達爾效應"]
-
-
             }
         ];
 
-let selectedOptions = {};
+        let selectedOptions = {};
 
         function init() {
             const container = document.getElementById('lab-content');
@@ -146,7 +144,18 @@ let selectedOptions = {};
         function updatePrompt() {
             const flat = Object.values(selectedOptions).flat();
             document.getElementById('counter').innerText = `已選擇 ${flat.length} 項`;
-            document.getElementById('final-prompt').value = flat.length ? flat.join(", ") : "";
+            
+            if (flat.length === 0) {
+                document.getElementById('final-prompt').value = "";
+                return;
+            }
+
+            // 修正處：重新加回 Cinematic car photography 前綴與 --ar 參數
+            const basePrompt = "Cinematic car photography, ultra-realistic, 8k resolution, highly detailed";
+            const userChoices = flat.join(", ");
+            const suffix = "--ar 9:16";
+            
+            document.getElementById('final-prompt').value = `${basePrompt}, ${userChoices} ${suffix}`;
         }
 
         function clearAll() {
@@ -181,4 +190,3 @@ let selectedOptions = {};
     </script>
 </body>
 </html>
-
