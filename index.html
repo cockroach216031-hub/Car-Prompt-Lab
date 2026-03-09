@@ -3,83 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>專業級汽車提示詞實驗室 - Pro Prompt Lab</title>
+    <title>Pro Prompt Lab v1.2 - 150 Units Professional Edition</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #050a15; color: #e2e8f0; font-family: sans-serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        body { background-color: #050a15; color: #e2e8f0; font-family: 'Inter', system-ui, sans-serif; }
         .glass-card { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.08); transition: 0.3s; }
         .glass-card:hover { border-color: rgba(59, 130, 246, 0.5); }
         .option-btn { border: 1px solid #1e293b; transition: all 0.2s; cursor: pointer; }
-        .option-btn:hover { background: #1e293b; color: white; }
         .option-btn.active { background: #2563eb; border-color: #60a5fa; color: white; box-shadow: 0 0 15px rgba(37, 99, 235, 0.4); }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
+        .custom-input { background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; }
+        .custom-input:focus { border-color: #3b82f6; outline: none; box-shadow: 0 0 10px rgba(59, 130, 246, 0.3); }
+        
+        /* 專業捲動條樣式 */
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(255,255,255,0.02); }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #3b82f6; }
     </style>
 </head>
 <body class="p-4 md:p-10">
 
-    <div class="max-w-6xl mx-auto pb-60">
-        <header class="mb-12 text-left border-l-4 border-blue-600 pl-6">
-            <h1 class="text-4xl font-black tracking-tight mb-2 uppercase">專業級提示詞實驗室</h1>
-            <p class="text-gray-400 font-medium">自定義比例與細節，精準生成 AI 汽車大片。</p>
+    <div class="max-w-7xl mx-auto pb-96">
+        <header class="mb-10 text-left border-l-4 border-blue-600 pl-6 flex justify-between items-end">
+            <div>
+                <h1 class="text-4xl font-black tracking-tight mb-2 uppercase italic text-white">Pro Prompt <span class="text-blue-500">Lab</span></h1>
+                <p class="text-gray-400 font-medium text-sm italic underline decoration-blue-900">AI 汽車影像專家指令庫 - 150 輛名車全解鎖版</p>
+            </div>
+            <div class="text-right hidden md:block">
+                <span class="text-[10px] bg-blue-500/10 text-blue-400 border border-blue-500/20 px-3 py-1 rounded-full uppercase tracking-widest font-bold">V1.2 MASTER EDITION</span>
+            </div>
         </header>
 
-        <div id="lab-content" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+        <div id="lab-content" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            </div>
+
+        <div class="mt-8 glass-card p-6 rounded-2xl border-dashed border-blue-500/30">
+            <div class="flex items-center gap-2 mb-4">
+                <span class="text-xl">✍️</span>
+                <h3 class="font-bold text-gray-200 text-sm italic uppercase tracking-wider">Custom Keywords / 手動增加細節</h3>
+            </div>
+            <div class="flex gap-2">
+                <input type="text" id="custom-tag-input" class="custom-input flex-1 px-4 py-3 rounded-xl text-sm" placeholder="例如: Motion Blur, carbon fiber interior, 4k...">
+                <button onclick="addCustomTag()" class="bg-blue-600 hover:bg-blue-500 px-8 py-2 rounded-xl text-xs font-bold transition-all uppercase">Add</button>
+            </div>
+            <div id="custom-tags-display" class="flex flex-wrap gap-2 mt-4"></div>
+        </div>
+
+        <footer class="mt-12 text-center text-gray-600 text-[10px] tracking-widest uppercase">
+            &copy; 2026 Pro Prompt Lab. Licensed for Commercial Use.
+        </footer>
     </div>
 
     <div class="fixed bottom-0 left-0 w-full p-6 bg-slate-900/95 backdrop-blur-xl border-t border-white/10 shadow-2xl z-50">
-        <div class="max-w-6xl mx-auto flex flex-col gap-6">
+        <div class="max-w-7xl mx-auto">
             <div class="flex flex-col lg:flex-row gap-6 items-end">
                 <div class="flex-1 w-full">
                     <div class="flex justify-between mb-2">
-                        <label class="text-xs text-blue-400 font-bold uppercase tracking-wider">Prompt & Search Keywords</label>
-                        <span id="counter" class="text-xs text-gray-500 font-mono">已選擇 0 項</span>
+                        <label class="text-xs text-blue-400 font-bold uppercase tracking-widest italic">Generated Professional Prompt</label>
+                        <span id="counter" class="text-xs text-gray-500 font-mono italic">Tags: 0</span>
                     </div>
-                    <textarea id="final-prompt" readonly class="w-full bg-black/60 border border-white/10 rounded-xl p-4 text-sm h-24 focus:outline-none focus:border-blue-500 resize-none text-blue-100" placeholder="點選上方選項..."></textarea>
+                    <textarea id="final-prompt" readonly class="w-full bg-black/60 border border-white/10 rounded-xl p-4 text-sm h-28 focus:outline-none focus:border-blue-500 resize-none text-blue-100 font-mono" placeholder="請點選上方標籤來組合你的專業指令..."></textarea>
                 </div>
                 
-                <div class="flex flex-wrap gap-3 w-full lg:w-auto">
-                    <button onclick="clearAll()" class="flex-1 lg:flex-none border border-red-500/50 text-red-400 hover:bg-red-500 hover:text-white px-5 py-4 rounded-xl font-bold transition-all text-xs">清除全部</button>
-                    <button onclick="randomPick()" class="flex-1 lg:flex-none border border-green-500/50 text-green-400 hover:bg-green-500 hover:text-white px-5 py-4 rounded-xl font-bold transition-all text-xs">隨機驚喜</button>
-                    <button onclick="googleSearchOnlyTags()" class="flex-1 lg:flex-none bg-white text-black hover:bg-gray-200 px-6 py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all text-xs">Google 搜尋圖片</button>
-                    <button onclick="copyPrompt()" class="flex-1 lg:flex-none bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-xl font-bold shadow-lg transition-all active:scale-95 text-xs">複製提示詞</button>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 w-full lg:w-auto">
+                    <button onclick="clearAll()" class="border border-red-500/50 text-red-400 hover:bg-red-500/10 px-4 py-4 rounded-xl font-bold text-[10px] uppercase">Clear</button>
+                    <button onclick="randomPick()" class="border border-green-500/50 text-green-400 hover:bg-green-500/10 px-4 py-4 rounded-xl font-bold text-[10px] uppercase">Random</button>
+                    <button onclick="googleSearchOnlyTags()" class="bg-white text-black hover:bg-gray-200 px-4 py-4 rounded-xl font-bold text-[10px] uppercase">Preview</button>
+                    <button onclick="copyPrompt()" class="bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-xl font-bold shadow-lg text-[10px] uppercase tracking-widest">Copy</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        const categories = [
-            { title: "車輛品牌與型號", icon: "🏎️", options: ["Aston Martin Valkyrie", "Audi RS6 Avant", "Bentley Continental GT Speed", "BMW M4 CSL (G82)", "Bugatti Tourbilllon", "Chevrolet Corvette Z06 (C8)", "Dodge Challenger SRT Hellcat", "Ferrari 250 GTO", "Ferrari SF90", "Ford F-150 Raptor R", "Ford GT (2017)", "Gordon Murray T.50", "Honda NSX (NA1)", "Hummer EV", "Jeep Wrangler Rubicon", "Koenigsegg Jesko", "Koenigsegg Jesko Absolut", "Lamborghini Countach LP400", "Lambo Revuelto", "Land Rover Defender", "Lexus LFA", "Lucid Air Sapphire", "Lotus Emira", "Maybach S-Class (Z223)", "Mazda RX-7 FD3S", "Mclaren 750S", "Mercedes-AMG One", "Mercedes-Benz G63 AMG", "Mini Cooper", "Mitsubishi Lancer Evo IX", "Mustang 1967", "Nissan Skyline GT-R R34", "Pagani Huayra", "Pagani Huayra Roadster BC", "Plymouth Superbird", "Porsche 911 GT3 RS (992)", "Rimac Nevera", "Rivian R1T", "RR Spectre (Rolls-Royce)", "Shelby Cobra 427", "Subaru Impreza 22B STi", "Tesla Model S", "Toyota Supra A80", "Volkswagen Golf R"] },
-            { title: "車色與特殊漆面", icon: "🎨", options: ["消光黑", "曜石黑", "珍珠白", "水泥灰", "石墨灰", "液態銀", "法拉利紅", "糖果紅", "極光粉", "熔岩橙", "金屬螢光黃", "香檳金", "磨砂金", "英倫綠", "松石綠", "金屬藍", "邁阿密藍", "午夜紫", "深夜紫", "鍛造碳纖維原色", "變色龍漆", "電鍍鉻"] },
-            { title: "外觀細節", icon: "🛠️", multi: true, options: ["寬體套件", "碳纖維件", "競技擴散器", "主動式尾翼", "低趴改裝", "底盤燈", "漆面倒影", "鍛造碳纖維紋路", "黃色競技大燈", "外露式中冷器", "車頂行李箱", "戰損妝", "雨滴掛牆", "燒胎煙霧", "動態模糊", "排氣管噴火", "泥濘濺射", "鍍膜潑水感", "低照度剪影", "防滾籠", "大角度負外傾角", "引擎室特寫", "金屬拉絲質感", "金屬陽極處理", "空氣力學定風翼", "葉子板寬體切割", "劃線打孔通風碟", "輪拱內襯細節", "剎車盤燒紅", "輪框旋轉動態", "氣壓避震藏輪"] },
-            { title: "輪框", icon: "🛞", options: ["經典五輻輪框", "雙五輻輪框", "密齒多幅式輪框", "網狀式輪框", "V 型輻條輪框", "深唇式輪框", "輕量化六輻輪框", "內凹式輪框", "單孔賽車式輪框", "低風阻封閉式輪框", "雙色切削輪框", "螺旋/渦輪式輪框", "鏤空輕量化輪框", "大餅式輪框", "三片式鍛造輪框", "碳纖維輪框", "釘裝式輪框"] },
-            { title: "環境背景", icon: "🚩", options: ["波音維爾鹽灘", "東京街頭", "海濱公路", "極簡豪宅前庭", "高速霓虹隧道", "私人飛機棚", "秋季山道", "賽道起跑線", "冰島黑沙灘", "廢棄倉庫", "工業地下停車場", "紅岩峽谷", "未來城市", "東京澀谷雨夜", "加州 1 號公路", "摩納哥賽道髮夾彎", "現代主義清水模建築", "北歐針林雪地", "廢棄超現實工廠", "杜拜棕櫚島夜景", "義大利科莫湖畔", "巴黎深夜艾菲爾鐵塔下", "德國紐柏林賽道北環", "倫敦梅費爾街區", "撒哈拉沙漠金黃沙丘", "蘇格蘭高地荒野", "亞利桑那羚羊峽谷", "銀翼殺手混亂街區", "全息攝影棚", "日式極簡禪意庭院", "火星殖民地基地"] },
-            { title: "光影與風格", icon: "📸", options: ["黃金小時側光", "電影級藍調時刻", "追焦模糊", "無人機視角", "復古柯達膠捲", "變形寬銀幕鏡頭", "丁達爾效應", "輪廓光", "體積霧", "雨滴反射", "攝影棚柔光", "霓虹反射"] },
-            { title: "影像比例", icon: "📐", options: ["--ar 9:16", "--ar 16:9", "--ar 3:2", "--ar 2:3", "--ar 4:5", "--ar 1:1"] },
-            { title: "專業色調", icon: "🎞️", options: ["藍橘電影感", "暗黑硬派", "膠捲感", "高對比黑白"] }
+        const vehicleDatabase = {
+            "頂級超跑與性能 (Performance)": {
+                "Bugatti Chiron": "Bugatti Chiron Pur Sport", "Ferrari LaFerrari": "Ferrari LaFerrari", "Lambo Aventador": "Lamborghini Aventador SVJ", "Porsche 918": "Porsche 918 Spyder", "McLaren P1": "McLaren P1", "Koenigsegg Jesko": "Koenigsegg Jesko Absolut", "Pagani Huayra": "Pagani Huayra BC", "Aston Martin Valkyrie": "Aston Martin Valkyrie", "Rimac Nevera": "Rimac Nevera", "Ferrari SF90": "Ferrari SF90 Stradale", "Lambo Huracán": "Lamborghini Huracan STO", "McLaren 720S": "McLaren 720S", "911 GT3 RS": "Porsche 911 GT3 RS 992", "Ford GT": "Ford GT 2017", "Lexus LFA": "Lexus LFA Nurburgring", "Audi R8 V10": "Audi R8 V10 Performance", "AMG One": "Mercedes-AMG One", "Maserati MC20": "Maserati MC20", "Corvette Z06": "Chevrolet Corvette Z06 C8", "GT-R R35": "Nissan GT-R R35 Nismo", "Civic Type R FL5": "Honda Civic Type R FL5", "GR Yaris": "Toyota GR Yaris", "Golf R": "Volkswagen Golf R Mk8", "AMG A45 S": "Mercedes-AMG A45 S", "BMW M2": "BMW M2 G87", "Ioniq 5 N": "Hyundai Ioniq 5 N", "Lotus Emira": "Lotus Emira", "Alpine A110": "Alpine A110 S", "Cayman GT4": "Porsche 718 Cayman GT4 RS", "Acura NSX": "Acura NSX Type S", "Hellcat": "Dodge Challenger Hellcat Redeye", "GT500": "Ford Mustang Shelby GT500", "CT5-V Blackwing": "Cadillac CT5-V Blackwing", "BMW M5 CS": "BMW M5 CS", "RS6 Avant": "Audi RS6 Avant C8", "AMG E63 S": "Mercedes-AMG E63 S", "Lambo Urus": "Lamborghini Urus Performante", "Purosangue": "Ferrari Purosangue", "DBX707": "Aston Martin DBX707", "Cayenne Turbo GT": "Porsche Cayenne Turbo GT"
+            },
+            "經典與 JDM (Heritage & JDM)": {
+                "Ferrari 250 GTO": "Ferrari 250 GTO", "Lambo Miura": "Lamborghini Miura P400SV", "911 Turbo (930)": "Porsche 911 930 Turbo", "300 SL Gullwing": "Mercedes-Benz 300 SL Gullwing", "Jaguar E-Type": "Jaguar E-Type", "AM DB5": "Aston Martin DB5", "Cobra 427": "Shelby Cobra 427", "Ford GT40": "Ford GT40 Mk I", "BMW M1": "BMW M1 E26", "McLaren F1": "McLaren F1", "Skyline R32": "Nissan Skyline GT-R R32", "Skyline R34": "Nissan Skyline GT-R R34", "Supra A80": "Toyota Supra A80 Turbo", "RX-7 FD3S": "Mazda RX-7 FD3S", "NSX NA1": "Honda NSX-R NA1", "Evo VI TME": "Mitsubishi Lancer Evo VI Tommi Makinen Edition", "Impreza 22B": "Subaru Impreza 22B STi", "Silvia S15": "Nissan Silvia S15 Spec-R", "AE86 Trueno": "Toyota AE86 Sprinter Trueno", "Integra DC2": "Honda Integra Type R DC2", "MX-5 NA": "Mazda MX-5 Miata NA", "Datsun 240Z": "Datsun 240Z", "BMW M3 E30": "BMW M3 E30 Sport Evo", "Lancia Delta": "Lancia Delta HF Integrale", "Audi Quattro": "Audi Sport Quattro", "Beetle": "Volkswagen Beetle Classic", "Mini Cooper": "Classic Mini Cooper S", "Citroën DS": "Citroen DS 21", "Fiat 500": "Classic Fiat 500", "De Tomaso Pantera": "De Tomaso Pantera GTS", "Superbird": "Plymouth Superbird 1970", "Dodge Charger": "Dodge Charger R/T 1969", "Mustang 1967": "Ford Mustang Fastback 1967", "Camaro SS": "Chevrolet Camaro SS 1969", "Pontiac GTO": "Pontiac GTO Judge 1969", "DeLorean": "DeLorean DMC-12", "Lotus Esprit": "Lotus Esprit S1", "Testarossa": "Ferrari Testarossa", "Countach": "Lamborghini Countach LP400", "Porsche 356": "Porsche 356 A Speedster"
+            },
+            "休旅與越野 (SUV & Off-road)": {
+                "RAV4": "Toyota RAV4 Adventure", "CR-V": "Honda CR-V 2024", "Model Y": "Tesla Model Y Performance", "Lexus NX": "Lexus NX 350h", "GLC": "Mercedes-Benz GLC 300", "BMW X5": "BMW X5 xDrive50e", "Audi Q5": "Audi Q5 Sportback", "Macan": "Porsche Macan GTS", "XC60": "Volvo XC60 Recharge", "CX-5": "Mazda CX-5 Turbo", "Tucson": "Hyundai Tucson N Line", "Sportage": "Kia Sportage X-Pro", "Kuga": "Ford Kuga ST-Line", "Tiguan": "Volkswagen Tiguan R", "Defender": "Land Rover Defender 110 V8", "G-Class": "Mercedes-Benz G63 AMG", "Land Cruiser 300": "Toyota Land Cruiser 300 GR Sport", "Wrangler": "Jeep Wrangler Rubicon", "Ford Bronco": "Ford Bronco Raptor", "Jimny": "Suzuki Jimny JB74", "Range Rover": "Range Rover SV", "Lexus RX": "Lexus RX 500h", "BMW X7": "BMW X7 M60i", "Escalade": "Cadillac Escalade-V", "Model X": "Tesla Model X Plaid", "Rivian R1S": "Rivian R1S", "MG HS": "MG HS Trophy", "X-Trail": "Nissan X-Trail e-POWER", "Outlander": "Mitsubishi Outlander PHEV", "Forester": "Subaru Forester Wilderness", "Corolla Cross": "Toyota Corolla Cross GR Sport", "HR-V": "Honda HR-V Sport", "Kicks": "Nissan Kicks e-POWER", "LBX": "Lexus LBX Relax", "XC40": "Volvo XC40 Recharge"
+            },
+            "家用與電動車 (Sedan & EV)": {
+                "Altis": "Toyota Corolla Altis", "Civic": "Honda Civic Sedan", "Mazda 3": "Mazda 3 Hatchback", "Model 3": "Tesla Model 3 Highland", "Camry": "Toyota Camry XSE 2025", "Lexus ES": "Lexus ES 300h", "C-Class": "Mercedes-Benz C300", "BMW 3 Series": "BMW 330i G20", "Audi A4": "Audi A4 S-line", "S60": "Volvo S60", "S-Class": "Mercedes-Benz S-Class W223", "BMW 7 Series": "BMW i7 M70", "Taycan": "Porsche Taycan Turbo S", "e-tron GT": "Audi RS e-tron GT", "EQS": "Mercedes-Benz EQS Sedan", "Ioniq 6": "Hyundai Ioniq 6", "EV6": "Kia EV6 GT", "BYD Seal": "BYD Seal Performance", "Golf GTI": "Volkswagen Golf Mk8 GTI", "Fit": "Honda Fit e:HEV RS", "Yaris": "Toyota Yaris GR Sport", "Swift": "Suzuki Swift Sport", "Mazda 2": "Mazda 2 Hatchback", "BMW 5 Series": "BMW 540i G60", "E-Class": "Mercedes-Benz E-Class W214", "Audi A6": "Audi A6 Avant", "Lexus IS": "Lexus IS 500", "WRX": "Subaru WRX VB", "Focus": "Ford Focus ST Mk4.5", "Octavia": "Skoda Octavia RS", "Superb": "Skoda Superb Sportline", "308": "Peugeot 308 GT", "Arteon": "Volkswagen Arteon R-Line", "Alphard": "Toyota Alphard Executive Lounge", "Lexus LM": "Lexus LM 500h"
+            }
+        };
+
+        const otherCats = [
+            { 
+title: "車色 (Color)", icon: "🎨", options: { "消光黑": "Matte Black", "曜石黑": "Obsidian Black", "珍珠白": "Pearl White", "水泥灰": "Nardo Grey", "石墨灰": "Graphite Grey", "液態銀": "Liquid Silver", "法拉利紅": "Rosso Corsa", "糖果紅": "Candy Apple Red", "極光粉": "Aurora Pink", "熔岩橙": "Lava Orange", "金屬螢光黃": "Metallic Fluorescent Yellow", "香檳金": "Champagne Gold", "磨砂金": "Frosted Gold", "英倫綠": "British Racing Green", "松石綠": "Turquoise Green", "金屬藍": "Metallic Blue", "邁阿密藍": "Miami Blue", "午夜紫": "Midnight Purple", "深夜紫": "Deep Purple", "鍛造碳纖維": "Forged Carbon Fiber", "變色龍漆": "Chameleon Paint", "電鍍鉻": "Electroplated Chrome" } },
+            { 
+title: "細節 (Exterior)", icon: "🛠️", multi: true, options: { "寬體套件": "Wide-body Kit", "碳纖維件": "Carbon Fiber Parts", "競技擴散器": "Racing Diffuser", "主動式尾翼": "Active Rear Wing", "低趴改裝": "Stanced, Low Suspension", "底盤燈": "Underglow Neon Lights", "漆面倒影": "Pristine Body Reflections", "鍛造碳纖維紋路": "Forged Carbon Texture", "黃色競技燈": "Yellow Endurance Headlights", "外露中冷器": "Exposed Intercooler", "車頂行李箱": "Roof Cargo Box", "戰損妝": "Battle-worn Aesthetic", "雨滴掛牆": "Water Droplets on Body", "燒胎煙霧": "Tire Smoke", "動態模糊": "Motion Blur", "排氣管噴火": "Exhaust Flames", "泥濘濺射": "Mud Splatter", "鍍膜潑水感": "Ceramic Coating Hydrophobic Effect", "低照度剪影": "Low-light Silhouette", "防滾籠": "Internal Roll Cage", "大負外傾角": "Extreme Negative Camber", "引擎室特寫": "Detailed Engine Bay Shot", "金屬拉絲": "Brushed Metal Texture", "陽極處理": "Anodized Finish", "定風翼": "Aerodynamic Canards", "葉子板切割": "Fender Vent Cutouts", "打孔碟盤": "Drilled & Slotted Brake Discs", "輪拱內襯": "Fender Well Details", "煞車盤燒紅": "Glowing Brake Rotors", "輪框旋轉": "Wheel Rotation Motion" } },
+            { 
+title: "輪框款式 (Wheels)", icon: "🛞", options: { "經典五輻": "Classic 5-spoke Wheels", "雙五輻": "Double 5-spoke Wheels", "密齒多幅": "Multi-spoke Mesh Wheels", "網狀式": "Lattice Mesh Wheels", "V 型輻條": "V-spoke Rims", "深唇式": "Deep Dish Rims", "輕量化六輻": "Lightweight 6-spoke", "內凹式": "Concave Profile Wheels", "單孔賽車": "Center-lock Racing Wheels", "封閉式": "Aero-disc Closed Wheels", "雙色切削": "Two-tone Machine-cut Wheels", "渦輪式": "Turbo Fan Style Rims", "鏤空式": "Skeletonized Lightweight Rims", "大餅式": "Monoblock Dish Rims", "三片鍛造": "3-piece Forged Wheels", "碳纖維輪框": "Carbon Fiber Rims", "釘裝式": "Riveted Multi-piece Wheels" } },
+            { 
+title: "背景 (Scene)", icon: "🚩", options: { "波音維爾鹽灘": "Bonneville Salt Flats", "汽車經銷商": "Vehicle Showroom", "東京街頭": "Tokyo City Streets", "海濱公路": "Coastal Highway", "豪宅前庭": "Minimalist Mansion Driveway", "霓虹隧道": "Neon-lit High-speed Tunnel", "飛機棚": "Private Jet Hangar", "秋季山道": "Autumn Mountain Pass", "賽道起跑線": "Race Track Starting Grid", "摩納哥髮夾彎": "Monaco Grand Prix Hairpin", "黑沙灘": "Icelandic Black Sand Beach", "廢棄倉庫": "Abandoned Industrial Warehouse", "地下停車場": "Underground Parking Lot", "紅岩峽谷": "Red Rock Canyon", "未來城市": "Cyberpunk Future City", "澀谷雨夜": "Shibuya Rain Night", "加州 1 號公路": "California Pacific Coast Highway", "清水模建築": "Modern Concrete Architecture", "北歐雪地": "Scandinavian Pine Forest Snow", "超現實工廠": "Surreal Abandoned Factory", "杜拜夜景": "Dubai Palm Jumeirah Nightview", "科莫湖畔": "Lake Como Villa", "巴黎鐵塔下": "Eiffel Tower Midnight", "紐柏林賽道": "Nurburgring Nordschleife", "倫敦街頭": "Mayfair London District", "撒哈拉沙漠": "Sahara Golden Dunes", "蘇格蘭荒野": "Scottish Highlands Wilderness", "羚羊峽谷": "Antelope Canyon", "銀翼殺手街區": "Blade Runner Dystopian District", "鄉間小路": "Country Road", "全息棚": "Holographic Studio", "日式庭院": "Japan Garden Courtyard", "火星基地": "Mars Colony Base" } },
+            { 
+title: "風格與光影 (Lighting & Lens)", icon: "📸", options: { "黃金小時": "Golden Hour Side Lighting", "藍調時刻": "Cinematic Blue Hour", "追焦模糊": "Rolling Motion Blur", "無人機視角": "Low-angle Drone View", "柯達膠捲": "Vintage Kodak Film Grain", "變形鏡頭": "Anamorphic Lens Aspect", "丁達爾效應": "Tyndall Effect Sunbeams", "輪廓光": "Rim Lighting", "體積霧": "Volumetric Fog", "雨滴反射": "Raindrop Refraction", "攝影棚柔光": "Studio Softbox Lighting", "霓虹反射": "Neon Cyberpunk Reflections" } },
+            { 
+title: "比例 (Ratio)", icon: "📐", options: { "9:16 (手機)": "--ar 9:16", "16:9 (橫向)": "--ar 16:9", "3:2 (專業)": "--ar 3:2", "2:3 (垂直)": "--ar 2:3", "4:5 (IG)": "--ar 4:5", "1:1 (正方)": "--ar 1:1", "4:3 (數位相機)": "--ar 4:3", "21:9 (超寬屏)": "--ar 21:9" } }
         ];
 
         let selectedOptions = {};
+        let customTags = [];
         const basePrefix = "Cinematic car photography, ultra-realistic, 8k resolution, highly detailed";
 
         function init() {
             const container = document.getElementById('lab-content');
-            categories.forEach(cat => {
+            
+            // 1. 渲染 150 輛車 (佔據兩欄寬度，以 4 類別排列)
+            const vDiv = document.createElement('div');
+            vDiv.className = 'glass-card p-6 rounded-2xl lg:col-span-4';
+            let vHtml = `<div class="flex items-center gap-2 mb-6 border-b border-white/5 pb-2"><span class="text-xl">🏎️</span><h3 class="font-bold text-gray-200 text-xs uppercase tracking-widest">Master Vehicle Database (150 Units)</h3></div><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">`;
+            
+            for (const [groupName, models] of Object.entries(vehicleDatabase)) {
+                vHtml += `<div class="flex flex-col gap-2">
+                            <h4 class="text-[10px] text-blue-500 font-black uppercase tracking-tighter mb-1">${groupName}</h4>
+                            <div class="flex flex-col gap-1 overflow-y-auto max-h-56 pr-2 custom-scrollbar">
+                                ${Object.entries(models).map(([label, value]) => `<button onclick="toggle('Vehicle', '${value}', false)" data-cat="Vehicle" data-val="${value}" class="option-btn text-left px-2 py-1.5 rounded-md text-[9px] font-medium text-gray-400 bg-slate-800/20">${label}</button>`).join('')}
+                            </div>
+                          </div>`;
+            }
+            vHtml += `</div>`;
+            vDiv.innerHTML = vHtml;
+            container.appendChild(vDiv);
+
+            // 2. 渲染其他分類
+            otherCats.forEach(cat => {
                 const div = document.createElement('div');
                 div.className = 'glass-card p-6 rounded-2xl';
-                div.innerHTML = `<div class="flex items-center gap-2 mb-4 border-b border-white/5 pb-2"><span class="text-xl">${cat.icon}</span><h3 class="font-bold text-gray-200 text-sm">${cat.title}</h3></div><div class="flex flex-wrap gap-2">${cat.options.map(opt => `<button onclick="toggle('${cat.title}', '${opt}', ${cat.multi || false})" data-cat="${cat.title}" data-opt="${opt}" class="option-btn px-3 py-1.5 rounded-lg text-[11px] font-medium text-gray-400 bg-slate-800/30">${opt}</button>`).join('')}</div>`;
+                const optsHtml = Object.entries(cat.options).map(([label, value]) => `<button onclick="toggle('${cat.title}', '${value}', ${cat.multi || false})" data-cat="${cat.title}" data-val="${value}" class="option-btn px-3 py-1.5 rounded-lg text-[10px] font-medium text-gray-400 bg-slate-800/30">${label}</button>`).join('');
+                div.innerHTML = `<div class="flex items-center gap-2 mb-4 border-b border-white/5 pb-2"><span class="text-xl">${cat.icon}</span><h3 class="font-bold text-gray-200 text-[10px] uppercase tracking-tighter">${cat.title}</h3></div><div class="flex flex-wrap gap-2">${optsHtml}</div>`;
                 container.appendChild(div);
             });
         }
 
-        function toggle(cat, opt, isMulti) {
+        function toggle(cat, val, isMulti) {
             if (!selectedOptions[cat]) selectedOptions[cat] = [];
             if (isMulti) {
-                const i = selectedOptions[cat].indexOf(opt);
+                const i = selectedOptions[cat].indexOf(val);
                 if (i > -1) selectedOptions[cat].splice(i, 1);
-                else selectedOptions[cat].push(opt);
-            } else { selectedOptions[cat] = [opt]; }
+                else selectedOptions[cat].push(val);
+            } else { selectedOptions[cat] = [val]; }
             renderUI();
             updatePrompt();
         }
@@ -87,61 +155,51 @@
         function renderUI() {
             document.querySelectorAll('.option-btn').forEach(btn => {
                 const cat = btn.getAttribute('data-cat');
-                const opt = btn.getAttribute('data-opt');
-                if (selectedOptions[cat] && selectedOptions[cat].includes(opt)) btn.classList.add('active');
+                const val = btn.getAttribute('data-val');
+                if (selectedOptions[cat] && selectedOptions[cat].includes(val)) btn.classList.add('active');
                 else btn.classList.remove('active');
             });
         }
 
         function updatePrompt() {
-            const allChoices = Object.entries(selectedOptions);
             const flatTags = [];
-            let aspectRatio = "";
-
-            allChoices.forEach(([title, choices]) => {
-                if (title === "影像比例") {
-                    aspectRatio = choices[0] || ""; // 比例只有一個
-                } else {
-                    flatTags.push(...choices);
-                }
+            let ratio = "";
+            Object.entries(selectedOptions).forEach(([title, choices]) => {
+                if (title.includes("Ratio")) { ratio = choices[0] || ""; } 
+                else { flatTags.push(...choices); }
             });
-
-            document.getElementById('counter').innerText = `已選擇 ${flatTags.length + (aspectRatio ? 1 : 0)} 項`;
-            
-            if (flatTags.length === 0 && !aspectRatio) {
-                document.getElementById('final-prompt').value = "";
-                return;
-            }
-
-            const promptText = `${basePrefix}, ${flatTags.join(", ")} ${aspectRatio}`.trim();
-            document.getElementById('final-prompt').value = promptText;
+            const finalTags = [...flatTags, ...customTags];
+            document.getElementById('counter').innerText = `Tags: ${finalTags.length + (ratio ? 1 : 0)}`;
+            document.getElementById('final-prompt').value = finalTags.length > 0 ? `${basePrefix}, ${finalTags.join(", ")} ${ratio}`.trim() : "";
         }
 
+        function addCustomTag() {
+            const val = document.getElementById('custom-tag-input').value.trim();
+            if (val && !customTags.includes(val)) { customTags.push(val); renderCustomTags(); updatePrompt(); document.getElementById('custom-tag-input').value = ""; }
+        }
+
+        function renderCustomTags() {
+            const display = document.getElementById('custom-tags-display');
+            display.innerHTML = customTags.map(tag => `<span class="bg-blue-600 text-white px-3 py-1 rounded-full text-[10px] flex items-center gap-2">${tag} <button onclick="removeCustomTag('${tag}')">×</button></span>`).join('');
+        }
+
+        function removeCustomTag(tag) { customTags = customTags.filter(t => t !== tag); renderCustomTags(); updatePrompt(); }
+        function clearAll() { selectedOptions = {}; customTags = []; renderUI(); renderCustomTags(); updatePrompt(); }
+        function copyPrompt() { const txt = document.getElementById('final-prompt'); if(!txt.value) return; navigator.clipboard.writeText(txt.value).then(() => alert("Master Prompt Copied!")); }
         function googleSearchOnlyTags() {
-            const flat = Object.entries(selectedOptions)
-                .filter(([title]) => title !== "影像比例") // 搜尋時過濾掉比例標籤
-                .map(([_, choices]) => choices)
-                .flat();
-
-            if (flat.length === 0) return alert("請先選擇車型或顏色等標籤！");
-            window.open(`https://www.google.com/search?q=${encodeURIComponent(flat.join(" "))}&tbm=isch`, '_blank');
+            const flat = Object.entries(selectedOptions).filter(([t]) => !t.includes("Ratio")).map(([_, c]) => c).flat();
+            const terms = [...flat, ...customTags];
+            if (terms.length === 0) return alert("Select some tags first!");
+            window.open(`https://www.google.com/search?q=${encodeURIComponent(terms.join(" "))}&tbm=isch`, '_blank');
         }
-
-        function clearAll() { selectedOptions = {}; renderUI(); updatePrompt(); }
-
         function randomPick() {
             selectedOptions = {};
-            categories.forEach(cat => {
-                selectedOptions[cat.title] = [cat.options[Math.floor(Math.random() * cat.options.length)]];
+            const allCats = [{title: 'Vehicle', options: Object.values(vehicleDatabase).flatMap(g => Object.values(g)), multi: false}, ...otherCats];
+            allCats.forEach(cat => {
+                const vals = Array.isArray(cat.options) ? cat.options : Object.values(cat.options);
+                selectedOptions[cat.title] = [vals[Math.floor(Math.random() * vals.length)]];
             });
-            renderUI();
-            updatePrompt();
-        }
-
-        function copyPrompt() {
-            const txt = document.getElementById('final-prompt');
-            if(!txt.value) return;
-            navigator.clipboard.writeText(txt.value).then(() => alert("已複製完整提示詞！"));
+            renderUI(); updatePrompt();
         }
 
         init();
